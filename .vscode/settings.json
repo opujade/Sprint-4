@@ -1,0 +1,8 @@
+{
+    "editor.fontFamily": "'Cascadia Code', 'Fira Code Retina'",
+    "debug.console.fontFamily": "Consolas, 'Courier New', monospace",
+    "editor.fontVariations": true,
+    "oneDarkPro.bold": true,
+    "oneDarkPro.vivid": true,
+    "editor.fontLigatures": true
+}
