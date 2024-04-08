@@ -1,8 +1,16 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.hello = void 0;
-const world = 'world';
-function hello(who = world) {
-    return `Hello ${who}! `;
+const dadjokeContainer = document.getElementById('dadjoke');
+function getDadJoke() {
+    const options = {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+        },
+    };
+    fetch('https://icanhazdadjoke.com/', options)
+        .then((res) => res.json())
+        .then((data) => printDadJoke(data));
 }
-exports.hello = hello;
+function printDadJoke(data) {
+    dadjokeContainer.innerHTML = data.joke;
+}
