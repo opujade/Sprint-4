@@ -7,9 +7,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+/* Global Consts */
 const dadJokeContainer = document.getElementById('dad-joke-container');
 const nextDadJokeBtn = document.getElementById('next-dad-joke-btn');
-nextDadJokeBtn.addEventListener('click', () => fetchDadJoke());
+nextDadJokeBtn.addEventListener('click', () => main());
+let reportAcudits;
+/* Main Function */
+function main() {
+    const date = new Date();
+    reportAcudits.push({
+        joke: fetchDadJoke(),
+        score: null,
+        date: date.toISOString()
+    });
+    getReports();
+}
+/* Get & Print Dad Joke */
 function fetchDadJoke() {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch('https://icanhazdadjoke.com/', {
@@ -21,11 +34,20 @@ function fetchDadJoke() {
             throw new Error(`Error ${response.status}`);
         }
         const data = yield response.json();
-        printDadJoke(data);
+        printDadJoke(data.joke);
+        return data.joke;
     });
 }
-function printDadJoke(data) {
-    dadJokeContainer.innerHTML = `"${data.joke}"`;
+function printDadJoke(joke) {
+    dadJokeContainer.innerHTML = `"${joke}"`;
 }
+/* Reports Function */
+function getReports() {
+    const checkedRadio = document.querySelector('input[name=score]:checked');
+    const score = parseInt(checkedRadio.value);
+    reportAcudits[reportAcudits.length - 1].score = score;
+    console.log(reportAcudits);
+}
+/* Init Functions */
 fetchDadJoke();
 export {};
