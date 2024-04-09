@@ -25,7 +25,7 @@ function fetchDadJoke() {
     });
 }
 function printDadJoke(data) {
-    dadJokeContainer.innerHTML = data.joke;
+    dadJokeContainer.innerHTML = `"${data.joke}"`;
 }
 fetchDadJoke();
 export {};

@@ -1,0 +1,18 @@
+// Bootstrap functions, vars and mixins
+@import '../node_modules/bootstrap/scss/mixins';
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+
+#background {
+  background-image: url('/img/husna-miskandar-FC4z3l4sUYc-unsplash.jpeg');
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+
+#joke-container {
+    width: 60%;
+    height: 60%;
+}
+
+@import '../node_modules/bootstrap/scss/bootstrap.scss';

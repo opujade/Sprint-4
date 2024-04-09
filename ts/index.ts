@@ -24,7 +24,7 @@ async function fetchDadJoke(): Promise<void> {
 }
 
 function printDadJoke(data: dadJoke): void {
-  dadJokeContainer.innerHTML = data.joke;
+  dadJokeContainer.innerHTML = `"${data.joke}"`;
 }
 
 fetchDadJoke();
