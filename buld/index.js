@@ -11,16 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const dadJokeContainer = document.getElementById('dad-joke-container');
 const nextDadJokeBtn = document.getElementById('next-dad-joke-btn');
 nextDadJokeBtn.addEventListener('click', () => main());
-let reportAcudits;
+const reportAcudits = [];
+const scoreInputs = document.querySelectorAll('input[name="score"]');
 /* Main Function */
 function main() {
-    const date = new Date();
-    reportAcudits.push({
-        joke: fetchDadJoke(),
-        score: null,
-        date: date.toISOString()
-    });
-    getReports();
+    fetchDadJoke();
 }
 /* Get & Print Dad Joke */
 function fetchDadJoke() {
@@ -35,17 +30,29 @@ function fetchDadJoke() {
         }
         const data = yield response.json();
         printDadJoke(data.joke);
-        return data.joke;
     });
 }
 function printDadJoke(joke) {
     dadJokeContainer.innerHTML = `"${joke}"`;
+    const date = new Date;
+    reportAcudits.push({
+        joke: joke,
+        score: 'pending',
+        date: date.toISOString()
+    });
+    if (reportAcudits.length > 1) {
+        getReports();
+    }
 }
 /* Reports Function */
 function getReports() {
-    const checkedRadio = document.querySelector('input[name=score]:checked');
-    const score = parseInt(checkedRadio.value);
-    reportAcudits[reportAcudits.length - 1].score = score;
+    let score = null;
+    scoreInputs.forEach((radio) => {
+        if (radio.checked) {
+            score = parseInt(radio.value);
+        }
+    });
+    reportAcudits[reportAcudits.length - 2].score = score;
     console.log(reportAcudits);
 }
 /* Init Functions */
