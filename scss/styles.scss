@@ -8,11 +8,21 @@
   background-position: center;
   background-size: cover;
   height: 100vh;
+
 }
 
 #joke-container {
-    width: 60%;
-    height: 60%;
+  width: 60%;
+  height: 60%;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+/* 
+.input-radio {
+  opacity: 0;
+} */
+
+// Bootstrap export
 @import '../node_modules/bootstrap/scss/bootstrap.scss';

@@ -8,17 +8,18 @@ const dadJokeContainer = document.getElementById(
 const nextDadJokeBtn = document.getElementById(
   'next-dad-joke-btn'
 ) as HTMLButtonElement;
-nextDadJokeBtn.addEventListener('click', () => main());
+nextDadJokeBtn.addEventListener('click', () => chooseJoke());
 const reportAcudits: reports[] = [];
 const scoreInputs = document.querySelectorAll<HTMLInputElement>('input[name="score"]');
 
 /* Main Function */
 function main() {
-  fetchDadJoke();
+  chooseJoke();
+  getIPLocationAPI();
 }
 
 /* Get & Print Dad Joke */
-async function fetchDadJoke(): Promise<void> {
+async function fetchDadJoke() {
   const response = await fetch('https://icanhazdadjoke.com/', {
     headers: {
       Accept: 'application/json',
@@ -31,10 +32,40 @@ async function fetchDadJoke(): Promise<void> {
 
   const data: dadJoke = await response.json();
 
-  printDadJoke(data.joke);
+  printJoke(data.joke);
 }
 
-function printDadJoke(joke: string): void {
+async function fetchChuckNorrisJoke() {
+  const url = 'https://humor-jokes-and-memes.p.rapidapi.com/jokes/search?exclude-tags=nsfw&min-rating=7&include-tags=chuck_norris&number=1&max-length=200';
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '7cfbb54073msh4210abe06eaba88p178b12jsn210a732001d6',
+      'X-RapidAPI-Host': 'humor-jokes-and-memes.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    printJoke(result.jokes[0].joke);
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function chooseJoke() {
+  const randomNum = Math.ceil(Math.random() * 2);
+
+  if (randomNum === 1) {
+    fetchDadJoke();
+  } else {
+    fetchChuckNorrisJoke();
+  }
+}
+
+function printJoke(joke: string): void {
   dadJokeContainer.innerHTML = `"${joke}"`;
 
   const date = new Date;
@@ -63,5 +94,45 @@ function getReports(): void {
   console.log(reportAcudits);
 }
 
+/* IP Location and Weather APIs */
+function getIPLocationAPI() {
+  const requestOptions = {
+    method: 'GET',
+  };
+
+  fetch("https://api.geoapify.com/v1/ipinfo?&apiKey=6c5c6384d2614998b48cdf3c76b245a2", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      getWeatherAPI(result.location.latitude, result.location.longitude);
+    })
+    .catch(error => console.log('error', error));
+}
+
+async function getWeatherAPI(latitude: number, longitude: number) {
+  const url = `https://visual-crossing-weather.p.rapidapi.com/forecast?aggregateHours=24&location=${latitude}%2C%20${longitude}&contentType=json&unitGroup=metric&shortColumnNames=true`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '7cfbb54073msh4210abe06eaba88p178b12jsn210a732001d6',
+      'X-RapidAPI-Host': 'visual-crossing-weather.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    showWeather(result.locations[`${latitude}, ${longitude}`].values[0].temp, result.locations[`${latitude}, ${longitude}`].values[0].conditions);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function showWeather(temp: number, conditions: string) {
+  const weatherContainer = document.getElementById('weather-container') as HTMLDivElement;
+
+  weatherContainer.innerHTML = `${conditions} | ${temp}`
+}
+
 /* Init Functions */
-fetchDadJoke();
+
+main();
