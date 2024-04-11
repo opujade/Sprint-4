@@ -18,6 +18,7 @@ const scoreInputs = document.querySelectorAll<HTMLInputElement>(
 function main() {
   chooseJoke();
   // getIPLocationAPI();
+  chooseBackground();
 }
 
 /* Get & Print Dad Joke */
@@ -66,7 +67,7 @@ function chooseJoke() {
     // fetchChuckNorrisJoke();
     printJoke('Chuck Norris Joke');
   }
-
+  chooseBackground();
   resetRadioInput();
 }
 
@@ -152,6 +153,13 @@ function showWeather(temp: number, conditions: string) {
   ) as HTMLDivElement;
 
   weatherContainer.innerHTML = `${conditions} | ${temp}`;
+}
+
+function chooseBackground() {
+  const randomNum = Math.ceil(Math.random() * 4);
+
+  const backgroundSVG1 = document.getElementById('main-container') as HTMLElement;
+  backgroundSVG1.style.backgroundImage = `url('/svg/svg-${randomNum}.svg')`;
 }
 
 /* Init Functions */

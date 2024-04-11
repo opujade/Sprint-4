@@ -17,6 +17,7 @@ const scoreInputs = document.querySelectorAll('input[name="score"]');
 function main() {
     chooseJoke();
     // getIPLocationAPI();
+    chooseBackground();
 }
 /* Get & Print Dad Joke */
 function fetchDadJoke() {
@@ -61,6 +62,7 @@ function chooseJoke() {
         // fetchChuckNorrisJoke();
         printJoke('Chuck Norris Joke');
     }
+    chooseBackground();
     resetRadioInput();
 }
 function resetRadioInput() {
@@ -128,6 +130,11 @@ function getWeatherAPI(latitude, longitude) {
 function showWeather(temp, conditions) {
     const weatherContainer = document.getElementById('weather-container');
     weatherContainer.innerHTML = `${conditions} | ${temp}`;
+}
+function chooseBackground() {
+    const randomNum = Math.ceil(Math.random() * 4);
+    const backgroundSVG1 = document.getElementById('main-container');
+    backgroundSVG1.style.backgroundImage = `url('/svg/svg-${randomNum}.svg')`;
 }
 /* Init Functions */
 main();
