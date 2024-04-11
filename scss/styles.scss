@@ -3,26 +3,83 @@
 @import '../node_modules/bootstrap/scss/functions';
 @import '../node_modules/bootstrap/scss/variables';
 
-#background {
-  background-image: url('/img/husna-miskandar-FC4z3l4sUYc-unsplash.jpeg');
-  background-position: center;
-  background-size: cover;
-  height: 100vh;
+.input-radio {
+  position: absolute;
+  opacity: 0;
+}
 
+.input-radio-label {
+  background-color: rgba(226, 226, 144, .4);
+  border-radius: 50%;
+  margin-top: 5rem;
+  cursor: pointer;
+  margin: 5rem 1rem 0 1rem;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgb(245, 212, 44);
+
+    .input-radio-icon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.input-radio:checked {
+  + .input-radio-label {
+    background-color: rgba(245, 212, 44, .9);
+    .input-radio-icon {
+      opacity: 0.9;
+      transform: translateY(-0.2rem);
+    }
+  }
+}
+
+.input-radio-icon {
+  transform: translateY(-0.5rem);
+  max-height: 5rem;
+  transition: 0.2s;
+  opacity: 0.75;
+}
+
+#next-joke-btn {
+  background-color: rgb(245, 212, 44, .4);
+  transition: .2s;
+  border: none;
+  color: white;
+  border-radius: 1rem;
+  &:hover {
+    background-color: rgb(245, 212, 44);
+  }
+}
+
+#main-container {
+  background-image: url('/svg/svg-1.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  &::before {
+    position: absolute;
+    border: 1rem solid black;
+    padding: 3rem;
+  }
 }
 
 #joke-container {
-  width: 60%;
-  height: 60%;
+  width: 40%;
+  bottom: 55%;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+#button-border {
+  border: .35rem solid black;
+  border-radius: 1rem;
+  max-height: 3rem;
+  transform: translateY(-0.5rem);
+  transition: .2s;
+  &hover {
+    transform: translateY(0);
+  }
 }
-/* 
-.input-radio {
-  opacity: 0;
-} */
 
 // Bootstrap export
 @import '../node_modules/bootstrap/scss/bootstrap.scss';

@@ -3,19 +3,21 @@ import { reports } from './interface/types';
 
 /* Global Consts */
 const dadJokeContainer = document.getElementById(
-  'dad-joke-container'
+  'joke-container'
 ) as HTMLDivElement;
-const nextDadJokeBtn = document.getElementById(
-  'next-dad-joke-btn'
+const nextJokeBtn = document.getElementById(
+  'next-joke-btn'
 ) as HTMLButtonElement;
-nextDadJokeBtn.addEventListener('click', () => chooseJoke());
+nextJokeBtn.addEventListener('click', () => chooseJoke());
 const reportAcudits: reports[] = [];
-const scoreInputs = document.querySelectorAll<HTMLInputElement>('input[name="score"]');
+const scoreInputs = document.querySelectorAll<HTMLInputElement>(
+  'input[name="score"]'
+);
 
 /* Main Function */
 function main() {
   chooseJoke();
-  getIPLocationAPI();
+  // getIPLocationAPI();
 }
 
 /* Get & Print Dad Joke */
@@ -35,7 +37,7 @@ async function fetchDadJoke() {
   printJoke(data.joke);
 }
 
-async function fetchChuckNorrisJoke() {
+/* async function fetchChuckNorrisJoke() {
   const url = 'https://humor-jokes-and-memes.p.rapidapi.com/jokes/search?exclude-tags=nsfw&min-rating=7&include-tags=chuck_norris&number=1&max-length=200';
   const options = {
     method: 'GET',
@@ -53,7 +55,7 @@ async function fetchChuckNorrisJoke() {
   } catch (error) {
     console.error(error);
   }
-}
+} */
 
 function chooseJoke() {
   const randomNum = Math.ceil(Math.random() * 2);
@@ -61,20 +63,31 @@ function chooseJoke() {
   if (randomNum === 1) {
     fetchDadJoke();
   } else {
-    fetchChuckNorrisJoke();
+    // fetchChuckNorrisJoke();
+    printJoke('Chuck Norris Joke');
   }
+
+  resetRadioInput();
+}
+
+function resetRadioInput() {
+  scoreInputs.forEach((radio: HTMLInputElement) => {
+    if (radio.checked) {
+      radio.checked = false;
+    }
+  });
 }
 
 function printJoke(joke: string): void {
   dadJokeContainer.innerHTML = `"${joke}"`;
 
-  const date = new Date;
+  const date = new Date();
 
   reportAcudits.push({
     joke: joke,
     score: 'pending',
-    date: date.toISOString()
-  })
+    date: date.toISOString(),
+  });
 
   if (reportAcudits.length > 1) {
     getReports();
@@ -88,7 +101,7 @@ function getReports(): void {
     if (radio.checked) {
       score = parseInt(radio.value);
     }
-  })
+  });
   reportAcudits[reportAcudits.length - 2].score = score;
 
   console.log(reportAcudits);
@@ -100,12 +113,15 @@ function getIPLocationAPI() {
     method: 'GET',
   };
 
-  fetch("https://api.geoapify.com/v1/ipinfo?&apiKey=6c5c6384d2614998b48cdf3c76b245a2", requestOptions)
-    .then(response => response.json())
-    .then(result => {
+  fetch(
+    'https://api.geoapify.com/v1/ipinfo?&apiKey=6c5c6384d2614998b48cdf3c76b245a2',
+    requestOptions
+  )
+    .then((response) => response.json())
+    .then((result) => {
       getWeatherAPI(result.location.latitude, result.location.longitude);
     })
-    .catch(error => console.log('error', error));
+    .catch((error) => console.log('error', error));
 }
 
 async function getWeatherAPI(latitude: number, longitude: number) {
@@ -114,23 +130,28 @@ async function getWeatherAPI(latitude: number, longitude: number) {
     method: 'GET',
     headers: {
       'X-RapidAPI-Key': '7cfbb54073msh4210abe06eaba88p178b12jsn210a732001d6',
-      'X-RapidAPI-Host': 'visual-crossing-weather.p.rapidapi.com'
-    }
+      'X-RapidAPI-Host': 'visual-crossing-weather.p.rapidapi.com',
+    },
   };
 
   try {
     const response = await fetch(url, options);
     const result = await response.json();
-    showWeather(result.locations[`${latitude}, ${longitude}`].values[0].temp, result.locations[`${latitude}, ${longitude}`].values[0].conditions);
+    showWeather(
+      result.locations[`${latitude}, ${longitude}`].values[0].temp,
+      result.locations[`${latitude}, ${longitude}`].values[0].conditions
+    );
   } catch (error) {
     console.error(error);
   }
 }
 
 function showWeather(temp: number, conditions: string) {
-  const weatherContainer = document.getElementById('weather-container') as HTMLDivElement;
+  const weatherContainer = document.getElementById(
+    'weather-container'
+  ) as HTMLDivElement;
 
-  weatherContainer.innerHTML = `${conditions} | ${temp}`
+  weatherContainer.innerHTML = `${conditions} | ${temp}`;
 }
 
 /* Init Functions */
