@@ -60,10 +60,10 @@ function chooseJoke() {
         fetchDadJoke();
     }
     else {
-        fetchChuckNorrisJoke();
+        printJoke('Chuck Norris Joke');
+        // fetchChuckNorrisJoke();
     }
     chooseBackground();
-    resetRadioInput();
 }
 function resetRadioInput() {
     scoreInputs.forEach((radio) => {
@@ -94,6 +94,7 @@ function getReports() {
     });
     reportAcudits[reportAcudits.length - 2].score = score;
     console.log(reportAcudits);
+    resetRadioInput();
 }
 /* IP Location and Weather APIs */
 function getIPLocationAPI() {

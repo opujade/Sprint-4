@@ -64,10 +64,10 @@ function chooseJoke() {
   if (randomNum === 1) {
     fetchDadJoke();
   } else {
-    fetchChuckNorrisJoke();
+    printJoke('Chuck Norris Joke')
+    // fetchChuckNorrisJoke();
   }
   chooseBackground();
-  resetRadioInput();
 }
 
 function resetRadioInput() {
@@ -105,6 +105,8 @@ function getReports(): void {
   reportAcudits[reportAcudits.length - 2].score = score;
 
   console.log(reportAcudits);
+
+  resetRadioInput();
 }
 
 /* IP Location and Weather APIs */
