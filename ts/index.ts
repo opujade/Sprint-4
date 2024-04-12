@@ -17,7 +17,7 @@ const scoreInputs = document.querySelectorAll<HTMLInputElement>(
 /* Main Function */
 function main() {
   chooseJoke();
-  // getIPLocationAPI();
+  getIPLocationAPI();
   chooseBackground();
 }
 
@@ -38,7 +38,7 @@ async function fetchDadJoke() {
   printJoke(data.joke);
 }
 
-/* async function fetchChuckNorrisJoke() {
+async function fetchChuckNorrisJoke() {
   const url = 'https://humor-jokes-and-memes.p.rapidapi.com/jokes/search?exclude-tags=nsfw&min-rating=7&include-tags=chuck_norris&number=1&max-length=200';
   const options = {
     method: 'GET',
@@ -56,7 +56,7 @@ async function fetchDadJoke() {
   } catch (error) {
     console.error(error);
   }
-} */
+}
 
 function chooseJoke() {
   const randomNum = Math.ceil(Math.random() * 2);
@@ -64,8 +64,7 @@ function chooseJoke() {
   if (randomNum === 1) {
     fetchDadJoke();
   } else {
-    // fetchChuckNorrisJoke();
-    printJoke('Chuck Norris Joke');
+    fetchChuckNorrisJoke();
   }
   chooseBackground();
   resetRadioInput();
@@ -139,8 +138,8 @@ async function getWeatherAPI(latitude: number, longitude: number) {
     const response = await fetch(url, options);
     const result = await response.json();
     showWeather(
-      result.locations[`${latitude}, ${longitude}`].values[0].temp,
-      result.locations[`${latitude}, ${longitude}`].values[0].conditions
+      result.locations[`${latitude}, ${longitude}`].currentConditions.temp,
+      result.locations[`${latitude}, ${longitude}`].currentConditions.icon
     );
   } catch (error) {
     console.error(error);
@@ -148,11 +147,17 @@ async function getWeatherAPI(latitude: number, longitude: number) {
 }
 
 function showWeather(temp: number, conditions: string) {
-  const weatherContainer = document.getElementById(
-    'weather-container'
-  ) as HTMLDivElement;
+  const weatherIcon = document.getElementById(
+    'weather-icon'
+  ) as HTMLImageElement;
+  const weatherTemp = document.getElementById(
+    'weather-temp'
+  ) as HTMLSpanElement;
 
-  weatherContainer.innerHTML = `${conditions} | ${temp}`;
+  weatherIcon.src = `/svg/weather-icons/${conditions}.svg`;
+  weatherIcon.alt = conditions;
+
+  weatherTemp.innerHTML = `${temp}ºC`
 }
 
 function chooseBackground() {

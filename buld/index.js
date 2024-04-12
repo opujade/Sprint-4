@@ -16,7 +16,7 @@ const scoreInputs = document.querySelectorAll('input[name="score"]');
 /* Main Function */
 function main() {
     chooseJoke();
-    // getIPLocationAPI();
+    getIPLocationAPI();
     chooseBackground();
 }
 /* Get & Print Dad Joke */
@@ -34,33 +34,33 @@ function fetchDadJoke() {
         printJoke(data.joke);
     });
 }
-/* async function fetchChuckNorrisJoke() {
-  const url = 'https://humor-jokes-and-memes.p.rapidapi.com/jokes/search?exclude-tags=nsfw&min-rating=7&include-tags=chuck_norris&number=1&max-length=200';
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '7cfbb54073msh4210abe06eaba88p178b12jsn210a732001d6',
-      'X-RapidAPI-Host': 'humor-jokes-and-memes.p.rapidapi.com'
-    }
-  };
-
-  try {
-    const response = await fetch(url, options);
-    const result = await response.json();
-    printJoke(result.jokes[0].joke);
-
-  } catch (error) {
-    console.error(error);
-  }
-} */
+function fetchChuckNorrisJoke() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = 'https://humor-jokes-and-memes.p.rapidapi.com/jokes/search?exclude-tags=nsfw&min-rating=7&include-tags=chuck_norris&number=1&max-length=200';
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '7cfbb54073msh4210abe06eaba88p178b12jsn210a732001d6',
+                'X-RapidAPI-Host': 'humor-jokes-and-memes.p.rapidapi.com'
+            }
+        };
+        try {
+            const response = yield fetch(url, options);
+            const result = yield response.json();
+            printJoke(result.jokes[0].joke);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    });
+}
 function chooseJoke() {
     const randomNum = Math.ceil(Math.random() * 2);
     if (randomNum === 1) {
         fetchDadJoke();
     }
     else {
-        // fetchChuckNorrisJoke();
-        printJoke('Chuck Norris Joke');
+        fetchChuckNorrisJoke();
     }
     chooseBackground();
     resetRadioInput();
@@ -120,7 +120,7 @@ function getWeatherAPI(latitude, longitude) {
         try {
             const response = yield fetch(url, options);
             const result = yield response.json();
-            showWeather(result.locations[`${latitude}, ${longitude}`].values[0].temp, result.locations[`${latitude}, ${longitude}`].values[0].conditions);
+            showWeather(result.locations[`${latitude}, ${longitude}`].currentConditions.temp, result.locations[`${latitude}, ${longitude}`].currentConditions.icon);
         }
         catch (error) {
             console.error(error);
@@ -128,8 +128,11 @@ function getWeatherAPI(latitude, longitude) {
     });
 }
 function showWeather(temp, conditions) {
-    const weatherContainer = document.getElementById('weather-container');
-    weatherContainer.innerHTML = `${conditions} | ${temp}`;
+    const weatherIcon = document.getElementById('weather-icon');
+    const weatherTemp = document.getElementById('weather-temp');
+    weatherIcon.src = `/svg/weather-icons/${conditions}.svg`;
+    weatherIcon.alt = conditions;
+    weatherTemp.innerHTML = `${temp}ºC`;
 }
 function chooseBackground() {
     const randomNum = Math.ceil(Math.random() * 4);

@@ -5,7 +5,7 @@
 }
 
 .input-radio-label {
-  background-color: rgb(255, 235, 121);
+  background-color: rgba(255, 230, 0, 0.9);
   position: relative;
   border-radius: 50%;
   margin-top: 5rem;
@@ -14,7 +14,7 @@
   transition: 0.2s;
 }
 .input-radio-label:hover {
-  background-color: rgb(245, 212, 44);
+  background-color: rgb(255, 230, 0);
 }
 .input-radio-label:hover .input-radio-icon {
   opacity: 1;
@@ -22,7 +22,7 @@
 }
 
 .input-radio:checked + .input-radio-label {
-  background-color: rgba(245, 212, 44, 0.9);
+  background-color: rgba(255, 195, 29, 0.9);
 }
 .input-radio:checked + .input-radio-label .input-radio-icon {
   opacity: 0.9;
@@ -40,7 +40,7 @@
   transition: 0.2s;
   border: none;
   color: black;
-  background-color: rgb(255, 235, 121);
+  background-color: rgba(255, 230, 0, 0.9);
   border-radius: 1.5rem;
   position: relative;
   width: 15rem;
@@ -60,7 +60,7 @@
   transition: 0.2s;
 }
 #next-joke-btn:hover {
-  background-color: rgb(245, 212, 44);
+  background-color: rgb(255, 230, 0);
   color: black;
 }
 #next-joke-btn:hover::before {
@@ -68,11 +68,13 @@
 }
 #next-joke-btn:active::before {
   top: 0;
+  background-color: rgba(255, 195, 29, 0.9);
 }
 
 #main-container {
   background-position: center;
   background-repeat: no-repeat;
+  transition: 0.1s;
 }
 #main-container::before {
   content: "";
@@ -114,6 +116,22 @@
     width: 90%;
   }
 }
+#weather-container {
+  left: 10%;
+  top: 10%;
+  opacity: 0.8;
+  transition: 0.2s;
+  cursor: pointer;
+  width: 4rem;
+}
+#weather-container:hover {
+  opacity: 1;
+}
+
+#weather-icon {
+  width: 50%;
+}
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors

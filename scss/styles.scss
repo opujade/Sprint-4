@@ -9,7 +9,7 @@
 }
 
 .input-radio-label {
-  background-color: rgb(255, 235, 121);
+  background-color: rgba(255, 230, 0, 0.9);
   position: relative;
   border-radius: 50%;
   margin-top: 5rem;
@@ -18,7 +18,7 @@
   transition: 0.2s;
 
   &:hover {
-    background-color: rgb(245, 212, 44);
+    background-color: rgba(255, 230, 0, 1);
 
     .input-radio-icon {
       opacity: 1;
@@ -29,7 +29,7 @@
 
 .input-radio:checked {
   +.input-radio-label {
-    background-color: rgba(245, 212, 44, .9);
+    background-color: rgba(255, 195, 29, 0.9);
 
     .input-radio-icon {
       opacity: 0.9;
@@ -49,7 +49,7 @@
   transition: .2s;
   border: none;
   color: black;
-  background-color: rgb(255, 235, 121);
+  background-color: rgba(255, 230, 0, 0.9);
   border-radius: 1.5rem;
   position: relative;
   width: 15rem;
@@ -70,7 +70,7 @@
   }
 
   &:hover {
-    background-color: rgb(245, 212, 44);
+    background-color: rgba(255, 230, 0);
     color: black;
 
     &::before {
@@ -81,6 +81,7 @@
   &:active {
     &::before {
       top: 0;
+      background-color: rgba(255, 195, 29, 0.9);
     }
   }
 }
@@ -88,6 +89,7 @@
 #main-container {
   background-position: center;
   background-repeat: no-repeat;
+  transition: .1s;
 
   &::before {
     content: '';
@@ -136,6 +138,20 @@
   #joke-container {
     width: 90%;
   }
+}
+#weather-container {
+  left: 10%;
+  top: 10%;
+  opacity: .8;
+  transition: .2s;
+  cursor: pointer;
+  width: 4rem;
+  &:hover {
+    opacity: 1;
+  }
+}
+#weather-icon {
+  width: 50%;
 }
 
 // Bootstrap export
