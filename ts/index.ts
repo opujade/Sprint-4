@@ -64,8 +64,7 @@ function chooseJoke() {
   if (randomNum === 1) {
     fetchDadJoke();
   } else {
-    printJoke('Chuck Norris Joke')
-    // fetchChuckNorrisJoke();
+    fetchChuckNorrisJoke();
   }
   chooseBackground();
 }

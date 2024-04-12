@@ -60,8 +60,7 @@ function chooseJoke() {
         fetchDadJoke();
     }
     else {
-        printJoke('Chuck Norris Joke');
-        // fetchChuckNorrisJoke();
+        fetchChuckNorrisJoke();
     }
     chooseBackground();
 }
