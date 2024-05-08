@@ -40,7 +40,7 @@ function fetchChuckNorrisJoke() {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '7cfbb54073msh4210abe06eaba88p178b12jsn210a732001d6',
+                'X-RapidAPI-Key': 'Your-API-Key',
                 'X-RapidAPI-Host': 'humor-jokes-and-memes.p.rapidapi.com'
             }
         };
@@ -100,7 +100,7 @@ function getIPLocationAPI() {
     const requestOptions = {
         method: 'GET',
     };
-    fetch('https://api.geoapify.com/v1/ipinfo?&apiKey=6c5c6384d2614998b48cdf3c76b245a2', requestOptions)
+    fetch('https://api.geoapify.com/v1/ipinfo?&apiKey=(Your-API-Key)', requestOptions)
         .then((response) => response.json())
         .then((result) => {
         getWeatherAPI(result.location.latitude, result.location.longitude);
@@ -113,7 +113,7 @@ function getWeatherAPI(latitude, longitude) {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '7cfbb54073msh4210abe06eaba88p178b12jsn210a732001d6',
+                'X-RapidAPI-Key': 'Your-API-Key',
                 'X-RapidAPI-Host': 'visual-crossing-weather.p.rapidapi.com',
             },
         };
